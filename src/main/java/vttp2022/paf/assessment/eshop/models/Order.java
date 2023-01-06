@@ -3,11 +3,6 @@ package vttp2022.paf.assessment.eshop.models;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
-
-import jakarta.json.Json;
-import jakarta.json.JsonArrayBuilder;
-import jakarta.json.JsonObject;
 
 // DO NOT CHANGE THIS CLASS
 public class Order {
@@ -58,25 +53,5 @@ public class Order {
 	public List<LineItem> getLineItems() { return this.lineItems; }
 	public void setLineItems(List<LineItem> lineItems) { this.lineItems = lineItems; }
 	public void addLineItem(LineItem lineItem) { this.lineItems.add(lineItem); }
-
-	public String generateID(){
-  		String order_id = UUID.randomUUID().toString().substring(0,8);
-		return order_id;
-	}
-
-	public JsonObject createOrder(Order order){
-		JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
-		//TODO iterate through the List of lineItem
-
-		return Json.createObjectBuilder()			
-			.add("order_id", generateID())
-			.add("name", getName())
-			.add("address", getAddress())
-			.add("email", getEmail())
-			.add("lineItems", arrBuilder.build())
-			.add("order_date", getOrderDate().toString())
-			.add("createdBy", "TAN TIAN CAI KEVIN")
-			.build();
-	}
 }
 
