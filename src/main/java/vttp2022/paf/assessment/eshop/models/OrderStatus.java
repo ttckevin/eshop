@@ -1,5 +1,10 @@
 package vttp2022.paf.assessment.eshop.models;
 
+import java.util.UUID;
+
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+
 // DO NOT CHANGE THIS CLASS
 public class OrderStatus {
 
@@ -15,4 +20,30 @@ public class OrderStatus {
 
 	public String getStatus() { return this.status; }
 	public void setStatus(String status) { this.status = status; }
+
+	public String generateDeliveryId(){
+		String order_id = UUID.randomUUID().toString().substring(0,8);
+	  return order_id;
+  }
+
+	public JsonObject updateStatusTaskFour(Order order){
+		return Json.createObjectBuilder()
+			.add("orderId", order.getOrderId())
+			.add("deliveryId", generateDeliveryId())
+			.build();
+	}
+
+	public JsonObject updateStatusTaskFiveSuccess(Order order){
+		return Json.createObjectBuilder()
+			.add("orderId", order.getOrderId())
+			.add("deliveryId", generateDeliveryId())
+			.add("status", "dispatched")
+			.build();
+	}
+	public JsonObject updateStatusTaskFiveFail(Order order){
+		return Json.createObjectBuilder()
+			.add("orderId", order.getOrderId())
+			.add("status", "Pending")
+			.build();
+	}
 }

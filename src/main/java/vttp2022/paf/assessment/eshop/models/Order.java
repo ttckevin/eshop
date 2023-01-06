@@ -8,6 +8,7 @@ import java.util.UUID;
 import jakarta.json.Json;
 import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonObjectBuilder;
 
 // DO NOT CHANGE THIS CLASS
 public class Order {
@@ -59,17 +60,23 @@ public class Order {
 	public void setLineItems(List<LineItem> lineItems) { this.lineItems = lineItems; }
 	public void addLineItem(LineItem lineItem) { this.lineItems.add(lineItem); }
 
-	public String generateID(){
+	public String generateOrderId(){
   		String order_id = UUID.randomUUID().toString().substring(0,8);
 		return order_id;
 	}
 
-	public JsonObject createOrder(Order order){
+	public JsonObject createOrder(){
 		JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
-		//TODO iterate through the List of lineItem
-
+		JsonObjectBuilder items =  Json.createObjectBuilder();
+		if(this.getLineItems()!= null){
+		for(LineItem item : this.getLineItems()){
+			items.add("item", item.getItem());
+			items.add("quantity", item.getQuantity());
+			arrBuilder.add(items.build());
+		}
+	}	
 		return Json.createObjectBuilder()			
-			.add("order_id", generateID())
+			.add("order_id", generateOrderId())
 			.add("name", getName())
 			.add("address", getAddress())
 			.add("email", getEmail())
@@ -78,5 +85,6 @@ public class Order {
 			.add("createdBy", "TAN TIAN CAI KEVIN")
 			.build();
 	}
+
 }
 
