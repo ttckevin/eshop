@@ -46,8 +46,8 @@ public class OrderRepository {
 		OrderStatus o = new OrderStatus();
 		if(srs.next()){
 			o.setName(name);
-			o.setPendingCount(srs.getString("pending"));
-			o.setDispatchedCount(srs.getString("dispatched"));
+			o.setPendingCount(srs.getString("pendingCount"));
+			o.setDispatchedCount(srs.getString("dispatchedCount"));
 		}
 		return o;
 	}
