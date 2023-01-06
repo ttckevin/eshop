@@ -6,7 +6,9 @@ public class LineItem {
 	private String item;
 	private Integer quantity;
 
-	public String getItem() { return this.item; }
+	public LineItem(String item2, int parseInt) {
+    }
+    public String getItem() { return this.item; }
 	public void setItem(String item) { this.item = item; }
 
 	public Integer getQuantity() { return this.quantity; }

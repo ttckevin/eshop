@@ -3,6 +3,12 @@ package vttp2022.paf.assessment.eshop.models;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
+
+import jakarta.json.Json;
+import jakarta.json.JsonArrayBuilder;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonObjectBuilder;
 
 // DO NOT CHANGE THIS CLASS
 public class Order {
@@ -53,5 +59,31 @@ public class Order {
 	public List<LineItem> getLineItems() { return this.lineItems; }
 	public void setLineItems(List<LineItem> lineItems) { this.lineItems = lineItems; }
 	public void addLineItem(LineItem lineItem) { this.lineItems.add(lineItem); }
+
+	public String generateId(){
+		String id = UUID.randomUUID().toString().substring(0,8);
+	  return id;
+  	}
+
+  public JsonObject createOrder(){
+	  JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+	  JsonObjectBuilder items =  Json.createObjectBuilder();
+	  if(this.getLineItems()!= null){
+	  for(LineItem item : this.getLineItems()){
+		  items.add("item", item.getItem());
+		  items.add("quantity", item.getQuantity());
+		  arrBuilder.add(items.build());
+	  }
+  }	
+	  return Json.createObjectBuilder()			
+		  .add("order_id", generateId())
+		  .add("name", getName())
+		  .add("address", getAddress())
+		  .add("email", getEmail())
+		  .add("lineItems", arrBuilder.build())
+		  .add("order_date", getOrderDate().toString())
+		  .add("createdBy", "TAN TIAN CAI KEVIN")
+		  .build();
+  }
 }
 
